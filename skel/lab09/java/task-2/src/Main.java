@@ -104,9 +104,25 @@ public class Main {
             ArrayList<Integer> d = new ArrayList<>();
             for (int i = 0; i <= n; i++)
                 d.add(0);
+
+            for (int i = 0; i <= n; i++) {
+                if(i == source) {
+                    d.set(i, 0);
+                } else {
+                    d.set(i, 100000);
+                }
+            }
+
+            for(int i = 0; i <= n; i++) {
+                    for(Edge edge : adj[i]) {
+                        if(d.get(edge.node) > d.get(i) + edge.cost) {
+                            d.set(edge.node, d.get(i) + edge.cost);
+                        }
+                    }
+            }
+
             return d;
         }
-    }
 
     public static void main(String[] args) {
         new Task().solve();

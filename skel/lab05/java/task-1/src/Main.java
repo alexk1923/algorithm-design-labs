@@ -2,6 +2,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 public class Main {
@@ -43,6 +44,33 @@ public class Main {
             }
         }
 
+        private boolean is_valid(Integer pos, ArrayList<Integer> aranjament) {
+            for(int i = 0; i < pos; i++) {
+                if(aranjament.get(i) == aranjament.get(pos)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        void back(ArrayList<ArrayList<Integer>> all, ArrayList<Integer> aranjament, int pos) {
+            
+            for(int i = 0; i < n; i++) { // iteram printre elementele pe care le vom incerca, i = element
+                if(aranjament.size() == pos) {
+                    aranjament.add(-1);
+                }
+                aranjament.set(pos, i + 1);
+                if(is_valid(pos, aranjament)) {
+                    if(pos == k - 1) {
+                        all.add(new ArrayList<>(aranjament));
+                        aranjament.remove(aranjament.size() - 1);
+                    } else {
+                        back(all, aranjament, pos + 1); 
+                    }
+                }
+            }
+        }
+
         private ArrayList<ArrayList<Integer>> getResult() {
             ArrayList<ArrayList<Integer>> all = new ArrayList<>();
 
@@ -50,9 +78,12 @@ public class Main {
             // multimii {1, ..., N}.
             //
             // Pentru a adauga un nou aranjament:
-            //   ArrayList<Integer> aranjament;
-            //   all.add(aranjament);
-            //
+            System.out.println("n = " + n);
+            System.out.println("k = " + k);
+            int counter = 0;
+            ArrayList<Integer> aranjament = new ArrayList<>();
+        
+            back(all, aranjament, 0);
 
             return all;
         }

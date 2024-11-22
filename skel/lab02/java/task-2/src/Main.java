@@ -44,7 +44,26 @@ public class Main {
         private int getResult() {
             // TODO: Aflati numarul minim de opriri necesare pentru
             // a ajunge la destinatie.
-            return 0;
+            System.out.println("benzinarii de pe drum: " + n);
+            System.out.println("m: " + m);
+            for(int i = 0; i < n; i++) {
+                System.out.println("benzinarie: " + dist[i]);    
+            }
+            
+            int counter = 0;
+            int curr_dist = 0;
+            int i = 0;
+            while(curr_dist < dist[n - 1] && i < n - 1) {
+                System.out.println("curr dist: " + curr_dist);
+                // daca trebuie sa se opreasca la benzinarie
+                if(curr_dist + m < dist[i + 1]) {
+                    System.out.println("oprire la : " + dist[i]);
+                    counter++;
+                    curr_dist = dist[i];
+                }
+                i++;
+            }
+            return counter;
         }
     }
 

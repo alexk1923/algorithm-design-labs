@@ -1,6 +1,8 @@
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
@@ -56,7 +58,27 @@ public class Main {
         private double getResult() {
             // TODO: Aflati profitul maxim care se poate obtine cu
             // obiectele date.
-            return 0;
+           Arrays.sort(objs, Comparator.comparingDouble(o -> (o.weight / o.price)));
+           for(int i = 0; i < n; i++) {
+                System.out.println("ob price: " + objs[i].price + " ob weight: " +  objs[i].weight);
+           }
+           int curr_weight = 0;
+           int i = 0;
+           double profit = 0.0;
+        System.out.println("w = " + w);
+           while(curr_weight < this.w && i < n) {
+               if(curr_weight + objs[i].weight < this.w) {
+                    profit+=objs[i].price;
+                    curr_weight+=objs[i].weight;
+               } else {
+                    int rem_weight = this.w - curr_weight;
+                    profit += objs[i].price * ((float)rem_weight / objs[i].weight);
+                    break;
+               }
+               i++;
+           }
+           
+            return profit;
         }
     }
 

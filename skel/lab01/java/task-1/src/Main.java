@@ -45,18 +45,77 @@ public class Main {
         private int findFirst() {
             // TODO: Cautati prima pozitie din v pe care se afla valoarea x.
             // In cazul in care nu exista in sir, returnati -1.
+            int left = 0;
+            int right = v.length - 1;
+
+            while(left <= right) {
+                int mid = (left + right) / 2;
+                
+                if(x == v[mid]) {
+                    while(mid >= 0 && x == v[mid]) {
+                        mid--;
+                    }
+                    return mid + 1;
+                }
+
+                if(x < v[mid]) {
+                    right = mid - 1;
+                }
+
+                if(x > v[mid]) {
+                    left = mid + 1;
+                }
+
+            }
+
             return -1;
         }
 
         private int findLast() {
             // TODO: Cautati ultima pozitie din v pe care se afla valoarea x.
             // In cazul in care nu exista in sir, returnati -1.
+
+            int left = 0;
+            int right = v.length - 1;
+
+            while(left <= right) {
+                int mid = (left + right) / 2;
+                
+                if(x == v[mid]) {
+                    while(mid < v.length && x == v[mid]) {
+                        mid++;
+                    }
+                    return mid - 1;
+                }
+
+                if(x < v[mid]) {
+                    right = mid - 1;
+                }
+
+                if(x > v[mid]) {
+                    left = mid + 1;
+                }
+
+            }
+
             return -1;
         }
 
         private int getResult() {
             // TODO: Calculati numarul de aparitii a numarului x in vectorul v.
-            return 0;
+            System.out.println("x = " + x);
+
+            for(int i = 0; i < v.length; i++) {
+                System.out.print(v[i] + " ");
+            }
+
+            System.out.println(findLast() - findFirst() + 1);
+            // System.out.println();
+            // System.out.println(findLast() - findFirst() + 1);
+            if(findFirst() == -1) {
+                return 0;
+            }
+            return (findLast() - findFirst() + 1);
         }
     }
 

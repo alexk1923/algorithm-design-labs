@@ -77,6 +77,7 @@ public class Main {
             // TODO: Calculati costul minim al unui arbore de acoperire
             // folosind algoritmul lui Prim.
             //
+            
             return 0;
         }
     }

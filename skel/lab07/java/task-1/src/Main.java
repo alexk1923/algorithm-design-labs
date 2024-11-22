@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 
 public class Main {
     static class Task {
@@ -70,6 +72,29 @@ public class Main {
             }
         }
 
+        void BFS(int d[], int source, ArrayList<Integer> adj[]) {
+            for(int i = 1; i <= n; i++) {
+                d[i] = -1;
+            }
+
+            Queue<Integer> q = new LinkedList<>();
+
+            d[source] = 0;
+            q.add(source);
+
+            while(!q.isEmpty()) {
+                int node = q.poll();
+                System.out.println("Node: " + node);
+            
+                for (Integer neigh : adj[node]) {
+                    if(d[node] + 1 < d[neigh] || d[neigh] == -1) {
+                        d[neigh] = d[node] + 1;
+                        q.add(neigh);
+                    }
+                }
+            }
+        }
+
         private int[] getResult() {
             // TODO: Faceti un BFS care sa construiasca in d valorile:
             // * d[node] = numarul minim de muchii de parcurs de la nodul `source` la nodul `node`
@@ -78,8 +103,10 @@ public class Main {
             // *******
             // ATENTIE: nodurile sunt indexate de la 1 la n.
             // *******
-
             int d[] = new int[n + 1];
+
+           
+            BFS(d, source, adj);
             return d;
         }
     }

@@ -38,7 +38,36 @@ public class Main {
         private double getResult() {
             // TODO: Calculeaza sqrt(n) cu o precizie de 10^-3.
             // Precizie de 10^(-x) inseamna |valoarea_ta - valoarea_reala| < 10^(-x).
-            return 0.0;
+
+            double left = 1;
+            double right = n;
+            
+            if(n < 1) {
+                left = n;
+                right = 1;
+            }
+            double mid = -1;
+
+            System.out.println("n = " + n);
+            System.out.println("right = " + right);
+
+            while(left <= right) {
+                mid = (left + right) / 2;
+                System.out.println("mid = " + mid);
+
+                if(mid * mid - n > 0.0001) {
+                    right = mid;
+                } else if(mid * mid - n < -0.0001) {
+                    left = mid;
+                } else{
+                    break;
+                }
+
+                
+            }
+
+
+            return mid;
         }
     }
 

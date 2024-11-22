@@ -45,6 +45,13 @@ public class Main {
             // TODO: Aflati numarul minim de monede ce poate fi folosit pentru a
             // obtine suma S. Tipurile monedelor sunt stocate in vectorul v, de
             // dimensiune n.
+            int[] dp = new int[1000];
+            
+
+            int curr_sum = 0;
+            for(int i = 0; i < n; i++) {
+                dp[i]= max(dp[i - 1], (dp[i - 1] + v[i] ));
+            }
             return 0;
         }
     }

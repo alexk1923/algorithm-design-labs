@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.PriorityQueue;
 
 public class Main {
     static class Task {
@@ -28,6 +30,16 @@ public class Main {
             Edge(int _node, int _cost) {
                 node = _node;
                 cost = _cost;
+            }
+        }
+
+        public class Pair{
+            public int node;
+            public int currentCost;
+
+            Pair(int _node, int _currentCost) {
+                node = _node;
+                currentCost = _currentCost;
             }
         }
 
@@ -93,10 +105,37 @@ public class Main {
             // O muchie este tinuta ca o pereche (nod adiacent, cost muchie):
             //    adj[x].get(i) == Edge(y, w): muchie (x, y) de cost w -> (x, y, w)
             //
-
+            boolean[] viz = new boolean[NMAX];
             ArrayList<Integer> d = new ArrayList<>();
             for (int i = 0; i <= n; i++)
                 d.add(0);
+            for(int i = 0; i <= n; i++) {
+                if(i == source || i == 0) {
+                    d.set(i, 0);
+                } else {
+                    d.set(i, -1);
+                }
+            }
+
+            PriorityQueue<Pair> pq = new PriorityQueue<>(new Comparator<Pair>() {
+                @Override
+                public int compare(Pair arg0, Pair arg1) {
+                    return arg0.currentCost - arg1.currentCost;
+                }
+            });
+            System.out.println("n = " + n);
+            pq.add(new Pair(source, 0));
+            while(!pq.isEmpty()) {
+                Pair p = pq.poll();
+                int u = p.node;
+                viz[u] = true;
+                for (Edge edge : adj[u]) {
+                    if((d.get(edge.node) > (d.get(u) + edge.cost)) && !viz[edge.node] || d.get(edge.node) == -1) {
+                        d.set(edge.node, (d.get(u) + edge.cost));
+                        pq.add(new Pair(edge.node, d.get(edge.node)));
+                    }
+                }
+            }
             return d;
         }
     }

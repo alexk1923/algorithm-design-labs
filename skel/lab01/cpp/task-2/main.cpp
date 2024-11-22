@@ -18,9 +18,29 @@ private:
     }
 
     double get_result() {
-        // TODO: Calculati sqrt(n) cu o precizie de 0.001
+        // TODO: Calculati  sqrt(n) cu o precizie de 0.001
         // Precizie de 10^-x = |rezultatul vostru - rezultatul corect| <= 10^-x
-        return 0.0;
+        printf("n = %f\n", n);
+        double left, right;
+        if (n >= 1) {
+            left = 0;
+            right = n;
+        } else {
+            left = n;
+            right = 1;
+        }
+        while (1) {
+            double mid = (left + right) / 2;
+            printf("%f\n", mid);
+            // double result = n >= 1 ?: n - mid * mid;
+            if (mid * mid - n > 0.0001) {
+                right = mid;
+            } else if (mid * mid - n < -0.0001) {
+                left = mid;
+            } else {
+                return mid;
+            }
+        }
     }
 
     void print_output(double result) {

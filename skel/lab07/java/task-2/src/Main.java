@@ -67,6 +67,37 @@ public class Main {
             }
         }
 
+        private boolean gradIntern(int i) {
+            if(neigh(i))
+        }
+
+        void BFS(int d[], int source, ArrayList<Integer> adj[]) {
+
+            Queue<Integer> q = new LinkedList<>();
+
+            for(int i = 1; i <= n; i++) {
+                if(gradIntern(i) == 0) {
+                    q.add(i);
+                }
+            }
+
+    
+            d[source] = 0;
+            q.add(source);
+
+            while(!q.isEmpty()) {
+                int node = q.poll();
+                System.out.println("Node: " + node);
+            
+                for (Integer neigh : adj[node]) {
+                    if(d[node] + 1 < d[neigh] || d[neigh] == -1) {
+                        d[neigh] = d[node] + 1;
+                        q.add(neigh);
+                    }
+                }
+            }
+        }
+
         private ArrayList<Integer> getResult() {
             // TODO: Faceti sortarea topologica a grafului stocat cu liste de adiacenta din adj.
             // *******
